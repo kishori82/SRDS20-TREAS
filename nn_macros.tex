@@ -1,0 +1,481 @@
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% FORMATTING 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\case}[1]{
+        {\vspace{1em}\noindent{\bf Case #1:}}}
+\newcommand{\subcase}[1]
+	{{\emph{Case #1:}}}
+
+%Efficiency Metric
+\newcommand{\efficiency}{operation latency}
+
+%floor
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+%ceiling
+\newcommand{\ceil}[1]{\lceil #1 \rceil}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% LIST OF SYMBOLS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define List of Symbols
+% Added by Nicolas Nicolaou
+\makeatletter
+\def\mainlistofsymbols{
+  %\newpage
+  %\vspace{.25in}
+  %\begin{center}
+  %  {\Large\bf LIST OF SYMBOLS}
+  %\end{center}
+  \normalsize
+  \vspace*{1.5 em}
+  \@starttoc{los}
+}
+
+\def\partonelistofsymbols{
+  \normalsize
+  \vspace*{1.5 em}
+  \@starttoc{p1los}
+}
+
+\def\parttwolistofsymbols{
+  \normalsize
+  \vspace*{1.5 em}
+  \@starttoc{p2los}
+}
+
+%% Define the formatting of the symbol entry in the addcontentsline command : NN
+\def\l@symbol#1#2{\addpenalty{-\@highpenalty} \vskip 4pt plus 2pt
+{\@dottedtocline{0}{0em}{8em}{#1}{#2}}}
+\makeatother
+
+% Command for list of symbols
+%% The symbol appears in both the los and in place in the text : NN
+\newcommand{\mainsym}[2]{%
+#1%
+\addcontentsline{los}{symbol}{\protect\numberline{#1}{#2}}
+%\addtocontents{los}{\contentsline{symbol}{\protect\numberline{#1}{#2}}{}}
+}
+
+%% The symbol appears in both the los and in place in the text : NN
+\newcommand{\partonesym}[2]{%
+#1%
+\addcontentsline{p1los}{symbol}{\protect\numberline{#1}{#2}}
+}
+
+%% The symbol appears in both the los and in place in the text : NN
+\newcommand{\parttwosym}[2]{%
+#1%
+\addcontentsline{p2los}{symbol}{\protect\numberline{#1}{#2}}
+}
+
+%% The symbol does not appear in the text but only in the los : NN
+\newcommand{\newhiddensym}[2]{%
+%% NN uncomment next line to work
+%\addcontentsline{los}{symbol}{\protect\numberline{#1}{#2}}
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%IOA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\stateSet}[1]{states(#1)}
+\newcommand{\startSet}[1]{start(#1)}
+\newcommand{\actionSet}[1]{actions(#1)}
+\newcommand{\inputSet}[1]{in(#1)}
+\newcommand{\outputSet}[1]{out(#1)}
+\newcommand{\internalSet}[1]{int(#1)}
+\newcommand{\sigSet}[1]{sig(#1)}
+\newcommand{\extsigSet}[1]{extsig(#1)}
+\newcommand{\transSet}[1]{trans(#1)}
+% Automata
+\newcommand{\IOA}{A}
+\newcommand{\algIOA}[2]{\ifmmode{\text{#1}_{#2}}\else{$\text{#1}_{#2}$}\fi}
+% IOA assigned to process #1
+\newcommand{\prIOA}[1]{A_{#1}}
+\newcommand{\chIOA}[1]{\text{\sc Channel}_{#1}}
+\newcommand{\rdIOA}[2]{\algIOA{#1}{#2}}
+\newcommand{\wrtIOA}[2]{\algIOA{#1}{#2}}
+\newcommand{\srvIOA}[2]{\algIOA{#1}{#2}}
+% Memory Automaton
+\newcommand{\memIOA}{\mathcal{M}}
+% Algorithm Automata
+\newcommand{\abdIOA}[1]{\algIOA{\ABD}{#1}}
+\newcommand{\fastIOA}[1]{\algIOA{\fast}{#1}}
+\newcommand{\sliqIOA}[1]{\algIOA{\SLIQ}{#1}}
+\newcommand{\cwfrIOA}[1]{\algIOA{\cwfr}{#1}}
+\newcommand{\sfwIOA}[1]{\algIOA{\sfw}{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Executions and execution fragments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\EX}{\ifmmode{\xi}\else{$\xi$}\fi}
+\newcommand{\EXF}{\ifmmode{\phi}\else{$\phi$}\fi}
+%Extend
+\newcommand{\extend}[2]{#1\circ#2}
+%Extracted execution
+\newcommand{\extract}[2]{#1|#2}
+%Actions
+\newcommand{\acts}{\alpha}
+%Execution Set
+\newcommand{\execSet}[1]{execs(#1)}
+%Good Executions Set for a particular failure pattern
+\newcommand{\gexecSet}[2]{goodexecs(#1,#2)}
+%General Good Executions Set
+\newcommand{\ggexecSet}[1]{goodexecs(#1)}
+%Event History
+\newcommand{\hist}[1]{H_{#1}}
+%Event History Fragment
+\newcommand{\histf}[1]{H_{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% States and State Variables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%State of an automaton
+%\newcommand{\st}{\sigma}
+\newcommand{\state}{\sigma}
+% Invocation Step
+\newcommand{\invStep}[1]{inv(#1)}
+\newcommand{\stInv}[1]{\st_{\invStep{#1}}}
+% Response Step
+\newcommand{\resStep}[1]{res(#1)}
+\newcommand{\stRes}[1]{\st_{\resStep{#1}}}
+%The value of variable #2 in state #1 of process #2 
+\newcommand{\stVar}[3]{#1[#2].#3}
+%Fix events (read, write, inform)
+\newcommand{\stfix}[1]{\st_{fix(#1)}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Object Type Notation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Object Response Set
+\newcommand{\objResSet}[1]{\Gamma_{#1}}
+%Object Operation Set
+\newcommand{\objOpSet}[1]{\opSet_{#1}}
+%Object State Set
+\newcommand{\objStSet}[1]{\Sigma_{#1}}
+%Object Transition Set
+\newcommand{\objTSet}[1]{\Delta_{#1}}
+%Object
+\newcommand{\obj}[1]{O_{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Quorum systems
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\qs}{\mathbb{Q}}
+% Biquorum System
+\newcommand{\bs}{\mathbb{B}}
+% Sub-Quorum system 
+\newcommand{\subqs}[1]{\qs^{#1}}
+% Quorum
+\newcommand{\quo}[1]{Q_{#1}}
+% Intersection
+\newcommand{\inter}[1]{
+	\ifmmode{\left(\bigcap_{\mathcal{Q}\in#1}\mathcal{Q}\right)}
+	\else{$\left(\bigcap_{\mathcal{Q}\in#1}\mathcal{Q}\right)$}
+	\fi
+}
+%Intersection Degree
+\newcommand{\qsdeg}{\delta}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Identifier sets
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\idSet}{\mathcal{I}}
+%Writer set
+\newcommand{\wSet}{\mathcal{W}}
+%Readers set
+\newcommand{\rdSet}{\mathcal{R}}
+% Reconfigurators Set
+\newcommand{\recSet}{\mathcal{G}}
+%Servers Set
+\newcommand{\srvSet}{\mathcal{S}}
+%Directory Servers Set
+\newcommand{\dirSet}{\mathcal{D}}
+%Replica Servers Set
+\newcommand{\repSet}{\mathcal{R}}
+%File Managers Servers Set
+\newcommand{\manSet}{\mathcal{M}}
+%Failure Set
+\newcommand{\failSet}[1]{\mathcal{F}_{#1}(A)}
+%Failure Model
+\newcommand{\failModel}[1]{fail(#1)}
+%Virtual Node Set
+\newcommand{\vSet}{\mathcal{V}}
+%Objects set
+\newcommand{\objSet}{\mathcal{O}}
+% Version Set
+\newcommand{\verSet}{\mathit{Versions}}
+% Operation Set
+\newcommand{\opSet}{\Pi}
+%  Client Set
+\newcommand{\cSet}{\mathcal{I}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Configuration Notation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Configuration Set
+\newcommand{\confSet}{\mathcal{C}}
+% Servers in a configuration
+\newcommand{\servers}[1]{ #1.Servers}
+%Configuration quorums
+\newcommand{\quorums}[1]{ #1.Quorums}
+% Configuration consensus object
+\newcommand{\consensus}[1]{ #1.Con}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Operation Notation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\op}{\pi}
+% Traceable Operation
+\newcommand{\trop}[2]{\op(#1)[#2]}
+
+%Read operation
+\newcommand{\rd}{\rho}
+%Write operation
+\newcommand{\wrt}{\omega}
+
+%Unique write operation
+\newcommand{\rf}{\mathfrak{R}}
+%Update operation
+\newcommand{\upd}{\mathfrak{u}}
+
+\mathchardef\mhyphen="2D
+% Write on Traceable Register
+\newcommand{\trw}[2]{\act{tr-write}(#1)[#2]}
+% Read on Traceable Register
+\newcommand{\trrd}[2]{\act{tr-read}(#1)[#2]}
+% Write on Ranked Register
+\newcommand{\rrw}[2]{rr\mhyphen\wrt(#1)[#2]}
+% Read on Ranked Register
+\newcommand{\rrrd}[2]{rr\mhyphen\rd(#1)[#2]}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Processes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\pr}{p}
+%Reader
+\newcommand{\rdr}{r}
+%Writer
+\newcommand{\wrtr}{w}
+%Server
+\newcommand{\srvr}{s}
+% Reconfigurer
+\newcommand{\rec}{rc}
+
+%Operation Precedence
+\newcommand{\bef}{\rightarrow}
+\newcommand{\conc}{\leftrightarrow}
+
+%Techniques Notation
+%Virtual Node ID for a reader
+\newcommand{\vid}[1]{\ifmmode{\nu_{#1}}\else{$\nu_{#1}$}\fi}
+%\newcommand{\vid}[1]{\nu(#1)}
+\newcommand{\id}[2]{\tup{#1,#2}}
+%Quorum Views
+\newcommand{\qv}[1]{{\bf QV#1}}
+%Server Side Ordering
+\newcommand{\SSO}{{\sc SSO}}
+%In progress set
+\newcommand{\inps}[1]{\ms{inprogress}_{#1}}
+%Seen Set
+\newcommand{\seen}{\ifmmode{seen}\else{$seen$}\fi}
+%Number of failures
+\newcommand{\fnum}{f}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Algorithm Names
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Semifast
+\newcommand{\SF}{{\sc Sf}}
+%Quorum Views (Sliq)
+\newcommand{\SLIQ}{{\sc Sliq}}
+%Classic writes Fast reads
+\newcommand{\cwfr}{{\sc CwFr}}
+%Server Side Ordering
+\newcommand{\sfw}{{\sc SfW}}
+%Approximate Server Side Ordering
+\newcommand{\aprxsfw}{{\sc aprx-SfW}}
+%ABD
+\newcommand{\ABD}{{\sc ABD}}
+%MW-ABD
+\newcommand{\mwABD}{{\sc mw}\ABD{}}
+%Fast
+\newcommand{\fast}{{\sc Fast}}
+%Erasure COded ABD
+\newcommand{\ecoABD}{{\sc eco}-\ABD{}}
+%Erasure COded Fast
+\newcommand{\ecofast}{{\sc eco}-\fast{}}
+%Erasure COded Quorum Views
+\newcommand{\ecocwfr}{{\sc eco}-\cwfr{}}
+%Atomic Reconfigurable Erasure coded Storage
+\newcommand{\ares}{{\sc Ares}}
+%Flexible Erasure Coded Algorithm
+\newcommand{\flexCAS}{{\sc TREAS}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Register Characteristics
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Object/File set
+\newcommand{\fileSet}{F}
+%Value Set
+\newcommand{\valSet}{{\mathcal V}}
+%Register Set
+\newcommand{\regSet}{X}
+%Timestamp Set
+\newcommand{\tsSet}{{\mathcal T}}
+%Message Set
+\newcommand{\msgSet}{M}
+%Message
+\newcommand{\msg}[1]{m_{#1}}
+%Value
+\newcommand{\val}[1]{val_{#1}}
+%New Value
+\newcommand{\newv}{v}
+%Previous Value (SF, SLIQ)
+\newcommand{\prev}{vp}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Timestamp & Tags
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Timestamp of process #1
+\newcommand{\ts}[1]{ts_{#1}}
+%Timestamp sent by a process #1 for an operation #2
+\newcommand{\msgts}[2]{\msgop{#1}{#2}.\ts{}}
+\newcommand{\tsop}[2]{\stVar{\stRes{#2}}{#1}{\ts{}}}
+%Postit of process #1
+\newcommand{\ps}[1]{postit_{#1}}
+%Postit sent by a process #1 for an operation #2
+\newcommand{\psop}[2]{postit_{#1}(#2)}
+%Tag of process #1
+\newcommand{\tg}[1]{\tau_{#1}}
+\newcommand{\msgtg}[2]{\msgop{#1}{#2}.\tg{}}
+%Tag returned by a process to an operation
+\newcommand{\tgop}[2]{\stVar{\stRes{#2}}{#1}{\tg{}}}
+%max timestamp, tag and postit
+\newcommand{\maxts}[1]{\ifmmode{maxTS_{#1}}\else{$maxTS_{#1}$}\fi}
+\newcommand{\maxtag}[1]{\ifmmode{maxTag_{#1}}\else{$maxTag_{#1}$}\fi}
+\newcommand{\maxpair}[1]{\ifmmode{maxMPair_{#1}}\else{$maxMPair_{#1}$}\fi}
+\newcommand{\mintag}[1]{\ifmmode{minTag_{#1}}\else{$minTag_{#1}$}\fi}
+\newcommand{\maxps}{\ifmmode{maxPS}\else{$maxPS$}\fi}
+\newcommand{\conftg}[1]{\ifmmode{confirmed_{#1}}\else{$confirmed_{#1}$}\fi}
+\newcommand{\maxconftag}{\ifmmode{\ms{maxCT}}\else{$maxCT$}\fi}
+%Max timestamp at read event of read operation
+\newcommand{\startmax}[2]{\stVar{\stInv{#2}}{#1}{\maxts{}}}
+%Max timestamp at read-fix evernt of read operation 
+%\newcommand{\witmax}[1]{\act{witnessed-maxTs}(#1)}
+%Max tag at read event of read operation
+%\newcommand{\startmaxtg}[1]{\act{start-maxTag}(#1)}
+%Max tag at read-fix evernt of read operation 
+%\newcommand{\witmaxtg}[1]{\act{witnessed-maxTag}(#1)}
+%Min tag at read-fix evernt of read operation 
+%\newcommand{\witmintg}[1]{\act{witnessed-maxTag}(#1)}
+%Starting timestamp at read event of read operation 
+%\newcommand{\startts}[2]{start(\ts{#1}(#2))}
+%Starting tag at read event of read operation 
+\newcommand{\starttag}[2]{\stVar{\stInv{#2}}{#1}{\tg{}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Semifast Variables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%seen set of server #2 in state #1
+\newcommand{\stateseen}[2]{#1[#2].\seen}
+%Set of servers that reply with maxPS to operation #1
+\newcommand{\maxpsSet}[1]{PS_{#1}}
+%Set of server replies
+\newcommand{\ackSet}[1]{srvAck(#1)}
+%Set of server replies to operation #1
+\newcommand{\psSet}[1]{srvInf(#1)}
+%Set of servers that replied with maxTs to operation #1
+\newcommand{\maxsrvSet}[1]{maxTsSrv(#1)}
+%Set of messages that contained maxTs
+\newcommand{\maxmsgSet}[1]{maxTsMsg(#1)}
+% read predicate
+\newcommand{\semirp}{{\bf SF-RP}}
+% Predicate factor
+\newcommand{\sffactor}{\beta}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SLIQ notation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Extention of execution #1
+\newcommand{\extex}[1]{\Delta(#1)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CWFR variables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\rquo}{replyQ}
+\newcommand{\quotg}[2]{(#1)^{>#2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ARES variables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Reconfiguration Box
+\newcommand{\recBox}{{\it\bf RecBox}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Server Side Ordering
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%write Counter
+\newcommand{\wc}{wc}
+% Confirmed variable of server #1 for operation #2
+\newcommand{\conf}[2]{\msgop{#1}{#2}.\conftg{}}
+% Inprogress set of process #1 for operation #2
+\newcommand{\inp}[2]{\msgop{#1}{#2}.\inps{}}
+% Tag found in the in-progress set of a message
+\newcommand{\minptg}[3]{\msgop{#1}{#2}.\inps{}[#3].\tg{}}
+% Tag found in the in-progress set
+\newcommand{\tginp}[3]{\stVar{{#1}}{#2}{\inps{}[#3].\tg{}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Communication
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Messages
+%message sent from a process #1 for operation #2
+\newcommand{\msgop}[2]{m(#2)_{#1}}
+%Read \rd_{#1} perform its #2 communication round
+\newcommand{\rdf}[2]{\rd_{#1}^{#2}}
+%Write \wrt_{#1} perform its #2 communication round
+\newcommand{\wrtf}[2]{\wrt_{#1}^{#2}}
+%Set of servers that reply to operation #1
+\newcommand{\replySet}[1]{\srvSet_{#1}}
+
+%%% Quorum Communication
+%Contact definition
+\newcommand{\contact}[3]{cnt(#3,#2)_{#1}}
+%Strictly Contacts
+\newcommand{\scontact}[3]{scnt(#3,#2)_{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ABBREVIATIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Communication round
+\newcommand{\comr}{round}%{\sc CR}}
+
+% Read/Write
+\newcommand{\rw}{{\sc read/write}}
+
+%single writer single reader 
+\newcommand{\swsr}{{\sc swsr}}
+%single writer multiple reader 
+\newcommand{\swmr}{{\sc swmr}}
+%multiple writer single reader 
+\newcommand{\mwsr}{{\sc mwsr}}
+%multiple writer multiple reader 
+\newcommand{\mwmr}{{\sc mwmr}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Helper Commands (comments, removals etc.)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newcommand{\remove}[1]{}
+

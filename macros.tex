@@ -1,0 +1,283 @@
+%Authors' macros
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{remark}[theorem]{Remark}
+%\newtheorem{definition}[theorem]{Definition}
+
+%\newtheorem{claim}[theorem]{Claim}
+%\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{observation}{Observation}
+
+%\newcommand{\prf}[1]{#1}
+\newcommand{\prf}[1]{{}}
+
+%\newtheorem{assert}{Assertion}[section]
+%\newenvironment{assertion}{\begin{quote}\begin{assert}}{\end{assert}\end{quote}}
+
+%\newtheorem{invariant}{Invariant}
+%\newtheorem{property}{Property}
+
+%\newenvironment{proof}{\noindent{\bf Proof.}}{\hfill$\Box$\FF}
+\newenvironment{NewProof}{\noindent{\bf Proof.}}{\hfill$\Box$\FF}
+
+%BEGIN DRAWING MACROS
+\setlength{\unitlength}{3.4pt}
+\newcommand{\drawoval}[5]{
+    \put(#1,#2){\oval(#3,#4) \makebox(0,0)[cc]{#5}}}
+\newcommand{\drawcenteredtext}[3]{\put(#1,#2){\makebox(0,0){#3}}}
+\newcommand{\drawdot}[2]{\put(#1,#2){\circle*{0.5}}}
+\newcommand{\drawthickdot}[2]{\put(#1,#2){\circle*{1}}}
+\newcommand{\drawvector}[5]{\put(#1,#2){\vector(#4,#5){#3}}}
+\newcommand{\drawcircle}[4]{
+    \put(#1,#2){\circle{#3}} \put(#1,#2){\makebox(0,0)[cc]{#4}}}
+%END DRAWING MACROS
+
+\newcommand{\RTWO}{{\sc Rambo II}}
+\newcommand{\RW}[1]{\ms{Reader-Writer}$_{#1}$}
+\newcommand{\Recon}[1]{\ms{Recon}$_{#1}$}
+\newcommand{\Joiner}[1]{\ms{Joiner}$_{#1}$}
+\newcommand{\Elec}[1]{\ms{Elect}$_{#1}$}
+\newcommand{\Geo}[1]{\ms{Geo}$_{#1}$}
+\newcommand{\Channel}[1]{\ms{Channel}$_{#1}$}
+\newcommand{\Cons}{\ms{Cons}}
+\newcommand{\HS}[1]{HotSpot$_{#1}$}
+\newcommand{\Paxos}{{\sc Paxos}$_{impl}$}
+\newcommand{\ltime}[1]{{\ell{\it time}}(#1)}
+\renewcommand{\time}[1]{\ms{time}(#1)}
+\newcommand{\rr}[1]{$#1$-{\it recon-readiness\/}}
+\newcommand{\jc}[1]{$#1$-{\it join-connectivity\/}}
+\newcommand{\rs}[1]{$#1$-{\it recon-spacing\/}}
+\newcommand{\cv}[1]{$#1$-{\it configuration-viability\/}}
+
+\newtheorem{Def}{Definition}[section]
+\newenvironment{Definition}{\begin{Def}\rm}{\hfill$\Box$\end{Def}}
+
+\newcommand{\sacode}[5]
+%{ \vspace{.25in} \hrule \vspace{.12in}
+{ \vspace{.06in} \hrule \vspace{.06in} %///AS reduce vspace
+ \noindent {\bf #1}: \\
+ \footnotesize \noindent {\bf Signature:}\B \nobreak
+ \normalsize \begin{quote} \nobreak #2 \end{quote}
+ \footnotesize \noindent {\bf States:}\B \nobreak
+ \begin{quote} \nobreak #3 \end{quote}
+ \noindent {\bf Transitions:} \nobreak
+ \vspace{-.2in} \nobreak
+ \normalsize #4
+% \footnotesize \noindent {\bf Tasks:} \nobreak
+% \begin{quote} \nobreak #5 \end{quote}
+% \normalsize
+% \vspace{.12in} \hrule \vspace{.25in}
+ \vspace{-.06in} \hrule \vspace{.06in} %///AS reduce vspace
+}
+
+\newcommand{\two}[4]{
+    \parbox{\columnwidth}{%
+    \parbox[t]{#1\columnwidth}{#3}%
+    \parbox[t]{#2\columnwidth}{#4}%
+}}
+
+\newcommand{\three}[6]{
+    \parbox{\columnwidth}{%
+    \parbox[t]{#1\columnwidth}{#4}%
+    \parbox[t]{#2\columnwidth}{#5}%
+    \parbox[t]{#3\columnwidth}{#6}%
+}}
+
+\newcommand{\threecolcode}[6]{\BB
+ ~\begin{minipage}[t]{#1\textwidth}{\footnotesize ~ #4}\end{minipage}
+ \begin{minipage}[t]{#2\textwidth}{\footnotesize ~ #5}\end{minipage}
+ \begin{minipage}[t]{#3\textwidth}{\footnotesize ~ #6}\end{minipage}
+}
+
+\newcommand{\act}[1]{%
+    \relax\ifmmode
+        \mathord{\mathcode`\-="702D\sf #1\mathcode`\-="2200}%
+    \else
+        $\mathord{\mathcode`\-="702D\sf #1\mathcode`\-="2200}$%
+%        {\sfshape #1}%
+%        {\sf #1}%
+    \fi
+}
+
+\newcommand{\tup}[1]{%
+    \relax\ifmmode
+%        \mathord{\mathcode`\-="702D\bf #1\mathcode`\-="2200}%
+      \langle #1 \rangle%
+    \else
+%        $\mathord{\mathcode`\-="702D\bf #1\mathcode`\-="2200}$%
+        $\langle$#1$\rangle$%
+    \fi
+}
+
+\newcommand{\seq}[1]{%
+    \relax\ifmmode
+%        \mathord{\mathcode`\-="702D\bf #1\mathcode`\-="2200}%
+      \langle \! \langle #1 \rangle \! \rangle%
+    \else
+%        $\mathord{\mathcode`\-="702D\bf #1\mathcode`\-="2200}$%
+        $\langle \! \langle$ #1 $\rangle \! \rangle$%
+    \fi
+}
+
+\newcommand{\twocolcode}[4]{\BB
+ ~\begin{minipage}[t]{#1\textwidth}{\footnotesize ~ #3}\end{minipage}
+ \begin{minipage}[t]{#2\textwidth}{\footnotesize ~ #4}\end{minipage}
+}
+
+\newcommand{\B}{\vspace*{-\smallskipamount}}
+\newcommand{\BB}{\vspace*{-\medskipamount}}
+\newcommand{\BBB}{\vspace*{-\bigskipamount}}
+\newcommand{\F}{\vspace*{\smallskipamount}}
+\newcommand{\FF}{\vspace*{\medskipamount}}
+\newcommand{\FFF}{\vspace*{\bigskipamount}}
+\newcommand{\T}{\hspace*{1em}}
+\newcommand{\TT}{\hspace*{2em}}
+\newcommand{\TTT}{\hspace*{3em}}
+\newcommand{\NT}{\hspace*{-1em}}
+%\newcommand{\Item}{\vspace*{-1.5\smallskipamount}\item}
+%\newcommand{\Item}{\vspace*{-2.5\smallskipamount}\item}
+\newcommand{\Item}{\item}
+%\setlength{\leftmargini}{1.5em}
+%\setlength{\leftmarginii}{1.6em}
+
+\newcommand{\Section}[1]{\section{#1}}%{\BB\section{#1}\BB} %{\B\section{#1}\B}
+\newcommand{\Subsection}[1]{\subsection{#1}}%{\BB\subsection{#1}\BB} %{\B\subsection{#1}\B}
+\newcommand{\Subsubsection}[1]{\subsubsection{#1}}%{\BB\subsubsection{#1}}
+\newcommand{\Paragraph}[1]{\paragraph{#1}}%{\BB\BB\paragraph{#1}}
+
+\newcommand{\Nat}{{\N}}
+\newcommand{\N}{\mathbb N}
+\newcommand{\R}{\mathbb R}
+\newcommand{\nnr}{{\mathbb R}^+}
+\newcommand{\rip}{\pm}
+\newcommand{\Cbot}{C_{\bot}}
+\newcommand{\EXP}[1]{{\mathbb E}\left(#1\right)}
+\newcommand{\Prob}[1]{{\mathbf P}{\mathbf r}\left(#1\right)}
+\newcommand{\Var}[1]{Var\left(#1\right)}
+
+\newcommand{\RAMBO}[1]{{\sc Rambo}$_{#1}$}
+\newcommand{\ACK}{ack}
+\newcommand{\ms}[1]{%
+    \relax\ifmmode
+        \mathord{\mathcode`\-="702D\it #1\mathcode`\-="2200}%
+    \else
+%        $\mathord{\mathcode`\-="702D\it #1\mathcode`\-="2200}$%
+%        {\itshape #1}%
+        {\it #1}%
+    \fi
+}
+
+%NEW MACRO USED FOR MESSAGE HEADERS
+\newcommand{\lit}[1]{%
+    \relax\ifmmode
+        \mathord{\mathcode`\-="702D\sf #1\mathcode`\-="2200}%
+    \else
+%        $\mathord{\mathcode`\-="702D\sf #1\mathcode`\-="2200}$%
+%        {\itshape #1}%
+        {\it #1}%
+    \fi
+}
+
+\newcommand{\XA}[1]{#1} % To remove stuff from extended Abstract
+\newcommand{\XD}[1]{#1} % To remove stuff for DISC submission
+\newcommand{\XDK}[1]{}% To keep stuff for DISC final
+\newcommand{\remove}[1]{} % To remove stuff
+\newcommand{\proofremove}[1]{#1} % To remove stuff
+\newcommand{\uselater}[1]{} % To remove stuff
+\newcommand{\viable}[1]{$#1${\it -viable\/}}
+
+% overladed latex command
+\renewcommand{\setminus}{-}
+
+% shorthand mnemonics
+% ig with phase number
+\newcommand{\igwsntp}[3]{\ms{ig({#1})_{#2}.w-sent({#3})}}
+\newcommand{\igdsntp}[3]{\ms{ig(#1)_{#2}.d-sent(#3)}}
+
+% ig without phase number
+\newcommand{\wknow}{\ms{w-known}}
+\newcommand{\igwknow}[2]{\ms{ig(#1)_{#2}.\wknow}}
+\newcommand{\dknow}{\ms{d-known}}
+\newcommand{\igdknow}[2]{\ms{ig(#1)_{#2}.\dknow}}
+
+\newcommand{\wunack}{\ms{w-unack}}
+\newcommand{\igwunack}[2]{\ms{ig(#1)_{#2}.\wunack}}
+\newcommand{\dunack}{\ms{d-unack}}
+\newcommand{\igdunack}[2]{\ms{ig(#1)_{#2}.\dunack}}
+\newcommand{\igpack}[2]{\ms{ig(#1)_{#2}.\ms{p-ack}}}
+
+\newcommand{\hmsg}[1]{\ms{h-msg}_{#1}}
+\newcommand{\hMSG}{\ms{h-MSG}}
+\newcommand{\oMSG}{\tup{W,v,t,cm,pns,pnr}}
+\newcommand{\MSG}{\tup{W,v,t,cm,\ms{pm}}}
+\newcommand{\HV}{{[h]}}
+
+%old notation
+\newcommand{\wdtp}[1]{\ms{w-sent(#1)}}
+\newcommand{\ddtp}[1]{\ms{d-sent(#1)}}
+
+%history variables
+\newcommand{\hrW}[1]{\ms{hrecv-W(#1)}}
+\newcommand{\hsW}[1]{\ms{hsent-W(#1)}}
+\newcommand{\hrD}[1]{\ms{hrecv-D(#1)}}
+\newcommand{\hsD}[1]{\ms{hsent-D(#1)}}
+\newcommand{\hsunack}[1]{\ms{hs-wunack(#1)}}
+\newcommand{\hsdunack}[1]{\ms{hs-dunack(#1)}}
+\newcommand{\hsknow}[1]{\ms{hs-wknow(#1)}}
+\newcommand{\hsdknow}[1]{\ms{hs-dknow(#1)}}
+\newcommand{\hsp}[1]{\ms{hs-pack(#1)}}
+\newcommand{\hsworld}[1]{\ms{hs-world(#1)}}
+\newcommand{\hsdep}[1]{\ms{hs-departed(#1)}}
+%\newcommand{\hknw}[2]{\ms{h-know(#1,#2)}}
+
+\newcommand{\MSGr}{$MSG_{{\scriptscriptstyle \mathrm{RA}}}$}
+\newcommand{\MSGl}{$MSG_{{\scriptscriptstyle \mathrm{LR}}}$}
+\newcommand{\MSGi}{$MSG_{{\scriptscriptstyle \mathrm{IG}}}$}
+
+\newcommand{\n}{\hat{n}}
+%\newcommand{\IGR}[1]{{\sc IG}-\RAMBO{{#1}}}
+%\newcommand{\IGR}[1]{{\rm IG-}\RAMBO{{#1}}}
+\newcommand{\IGR}[1]{{\sc Atila{#1}}}
+\newcommand{\HR}[1]{{\sc H}-\RAMBO{{#1}}}
+
+\newcommand{\world}{\ms{world}}
+
+\newcommand{\peter}[1]{\textcolor{red}{{\bf (Peter:)} #1}}
+\newcommand{\cgc}[1]{#1}%{\textcolor{blue}{{\bf (CG:)} #1}}
+%\newcommand{\elaine}[1]{\textcolor{magenta}{{\bf (Elaine:)} #1}}
+\newcommand{\cg}[1]{#1}%{\textcolor{blue}{{#1}}}
+\newcommand{\red}[1]{\textcolor{red}{{#1}}}
+\newcommand{\blue}[1]{\textcolor{blue}{{#1}}}
+
+%\renewcommand{\baselinestretch}{0.94}
+%\renewcommand{\baselinestretch}{1.10}
+
+
+\newcommand{\point}[1]{~\\\smallskip\noindent {\tt (*)} #1} %\item #1}
+
+\newcommand{\ef}[2]{
+    \begin{tabbing}
+    XX\= XX\=XX\=XX\=XX\=XX\=  \kill
+    \protect #1\\
+    ~ Effect: \+ \\
+      #2 \- 
+\end{tabbing}}
+
+\newcommand{\prcef}[3]{
+    \begin{tabbing}
+    XX\= XX\=XX\=XX\=XX\= \kill
+    \protect #1\\
+    ~ Precondition: \+ \\
+     #2 \- \\
+    ~ Effect: \+ \\
+     #3 \- 
+\end{tabbing}}
+
+\newenvironment{mylisting}
+{\begin{list}{}{\setlength{\leftmargin}{1em}}\item\scriptsize\bfseries}
+{\end{list}}
+
+\newenvironment{mytinylisting}
+{\begin{list}{}{\setlength{\leftmargin}{1em}}\item\tiny\bfseries}
+{\end{list}}

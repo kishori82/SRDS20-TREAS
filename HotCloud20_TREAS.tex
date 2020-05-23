@@ -1,0 +1,298 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template for USENIX papers.
+%
+% History:
+%
+% - TEMPLATE for Usenix papers, specifically to meet requirements of
+%   USENIX '05. originally a template for producing IEEE-format
+%   articles using LaTeX. written by Matthew Ward, CS Department,
+%   Worcester Polytechnic Institute. adapted by David Beazley for his
+%   excellent SWIG paper in Proceedings, Tcl 96. turned into a
+%   smartass generic template by De Clarke, with thanks to both the
+%   above pioneers. Use at your own risk. Complaints to /dev/null.
+%   Make it two column with no page numbering, default is 10 point.
+%
+% - Munged by Fred Douglis <douglis@research.att.com> 10/97 to
+%   separate the .sty file from the LaTeX source template, so that
+%   people can more easily include the .sty file into an existing
+%   document. Also changed to more closely follow the style guidelines
+%   as represented by the Word sample file.
+%
+% - Note that since 2010, USENIX does not require endnotes. If you
+%   want foot of page notes, don't include the endnotes package in the
+%   usepackage command, below.
+% - This version uses the latex2e styles, not the very ancient 2.09
+%   stuff.
+%
+% - Updated July 2018: Text block size changed from 6.5" to 7"
+%
+% - Updated Dec 2018 for ATC'19:
+%
+%   * Revised text to pass HotCRP's auto-formatting check, with
+%     hotcrp.settings.submission_form.body_font_size=10pt, and
+%     hotcrp.settings.submission_form.line_height=12pt
+%
+%   * Switched from \endnote-s to \footnote-s to match Usenix's policy.
+%
+%   * \section* => \begin{abstract} ... \end{abstract}
+%
+%   * Make template self-contained in terms of bibtex entires, to allow
+%     this file to be compiled. (And changing refs style to 'plain'.)
+%
+%   * Make template self-contained in terms of figures, to
+%     allow this file to be compiled. 
+%
+%   * Added packages for hyperref, embedding fonts, and improving
+%     appearance.
+%   
+%   * Removed outdated text.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[letterpaper,twocolumn,10pt]{article}
+\usepackage{usenix2019_v3}
+
+% to be able to draw some self-contained figs
+\usepackage{tikz}
+\usepackage{amsmath}
+
+% inlined bib file
+%\usepackage{filecontents}
+
+%-------------------------------------------------------------------------------
+%\begin{filecontents}{\jobname.bib}
+%	%-------------------------------------------------------------------------------
+%	@Book{arpachiDusseau18:osbook,
+%		author =       {Arpaci-Dusseau, Remzi H. and Arpaci-Dusseau Andrea C.},
+%		title =        {Operating Systems: Three Easy Pieces},
+%		publisher =    {Arpaci-Dusseau Books, LLC},
+%		year =         2015,
+%		edition =      {1.00},
+%		note =         {\url{http://pages.cs.wisc.edu/~remzi/OSTEP/}}
+%	}
+%	@InProceedings{waldspurger02,
+%		author =       {Waldspurger, Carl A.},
+%		title =        {Memory resource management in {VMware ESX} server},
+%		booktitle =    {USENIX Symposium on Operating System Design and
+%			Implementation (OSDI)},
+%		year =         2002,
+%		pages =        {181--194},
+%		note =         {\url{https://www.usenix.org/legacy/event/osdi02/tech/waldspurger/waldspurger.pdf}}}
+%\end{filecontents}
+
+
+%-------------------------------------------------------------------------------
+% MACRO
+%-------------------------------------------------------------------------------
+\usepackage{microtype}
+\usepackage{amssymb,amsmath,multicol,amsthm}
+\usepackage{graphicx,url}
+\usepackage{color,setspace,enumitem}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{times}
+\usepackage{ulem}
+%\usepackage[left=.9in, right=.9in, top=.9in, bottom=.9in]{geometry}
+
+\usepackage[ruled]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{ioa_code}
+\usepackage{scalerel,stackengine}
+
+
+\newcommand{\myemph}[1]{{\it #1}}
+%\newcommand{\nn}[1]{{\blue{#1}}}
+\newcommand{\nn}[1]{{{#1}}}
+%\newcommand{\nnrev}[2]{\sout{}{\blue{#2}}}
+\newcommand{\nnrev}[2]{\sout{}{{#2}}}
+%\newcommand{\kmk}[1]{{\red{#1}}}
+\newcommand{\kmk}[1]{{{#1}}}
+
+%\renewcommand{\cg}[1]{{\textcolor{blue}{#1}}}
+\newtheorem*{theorem}{{\bf Theorem}}
+\newtheorem*{lemma}{{\bf Lemma}}
+
+
+%\newcommand{\myparagraph}[1]{\paragraph*{#1}}
+\newcommand{\myparagraph}[1]{\smallskip\noindent{\textbf{#1}}}
+
+%Coding Stuff
+\newcommand{\states}[1]{{ {states}(#1)}}
+\newcommand{\startstates}[1]{{ {start}(#1)}}
+\newcommand{\sig}[1]{{ {sig}(#1)}}
+\newcommand{\inactions}[1]{{ {in}(#1)}}	
+\newcommand{\outactions}[1]{{ {out}(#1)}}
+\newcommand{\intactions}[1]{{ {int}(#1)}}
+\newcommand{\extactions}[1]{{ {ext}(#1)}}
+\newcommand{\trans}[1]{{ {trans}(#1)}}
+\newcommand{\encode}[3]{{ {encode}_{#1, #2}(#3)}}
+\newcommand{\decode}[3]{{ {decode}_{#1, #2}(#3)}}
+\newcommand{\cvec}[2]{\mathbf{c}^{#1}_{#2}}
+\newcommand{\atT}[2]{#1|_{#2}}
+\newcommand{\status}[1]{#1.status}
+\newcommand{\config}[1]{#1.cfg}
+%\newcommand{\CASOPT}{{\sc TREAS}} 
+\newcommand{\GetTag}{{ \it{get-tag}}}
+\newcommand{\QueryTag}{\text{\sc{query-tag}}}
+\newcommand{\PutData}{{ \it{put-data}}}
+\newcommand{\PutDataTag}{\text{\sc{put-data}}}
+\newcommand{\GetData}{{ \it{get-data}}}
+\newcommand{\QueryTagData}{\text{\sc{query-tag-data}}}
+\newcommand{\GetTagResp}{{ \it{get-tag-resp}}}
+\newcommand{\GetDataResp}{{ \it{get-data-resp}}}
+\newcommand{\PutDataResp}{{ \it{put-data-resp}}}
+\newcommand{\InitRep}{{ \it{init-repair}}}
+\newcommand{\RepairTagData}{\text{\sc{repair-tag-data}}}
+\newcommand{\InitRepResp}{{ \it{init-repair-resp}}}
+\newcommand{\CodedElementTag}{\text{\sc{code-elements}}}
+\newcommand{\Coded}{code\act{-}elems}
+\newcommand{\ConfirmDataTag}{\text{\sc{confirm-data}}}
+\newcommand{\QueryList}{\text{\sc{query-list}}}
+\newcommand{\RepairList}{\text{\sc{repair-list}}}
+\newcommand{\optag}[1]{{tag(#1)}}
+\newcommand{\gseq}{{\mathcal{G}_L}}
+
+\newcommand{\smdelay}{d}
+\newcommand{\lgdelay}{D}
+\newcommand{\opdelay}[1]{T(#1)}
+\newcommand{\opdelaymin}[1]{T_{min}(#1)}
+\newcommand{\opdelaymax}[1]{T_{max}(#1)}
+\newcommand{\seqlen}{\lambda}
+\newcommand{\emp}[1]{{\it #1}}
+\newcommand{\commentOut}[1]{}
+
+\newcommand{\treasmod}{{\sc Treas}}
+\newcommand{\treasCassandra}{{\sc Treas-Cassandra}}
+
+\algblockdefx[Operation]{Operation}{EndOperation}%
+[2]{{\bf operation} $\act{#1}$(#2)}%
+{{\bf end operation}}
+\algblockdefx[Procedure]{Procedure}{EndProcedure}%
+[2]{{\bf procedure} $\act{#1}$(#2)}%
+{{\bf end procedure}}
+
+
+\algblockdefx[Receive]{Receive}{EndReceive}%
+[2]{{\bf Upon receive} (#1)$_{\text{ #2 }}${\bf from} $q$}%
+{{\bf end receive}}
+
+
+
+\newcommand{\daputdata}[2]{{\act{put-data}(#2)}}
+\newcommand{\dagetdata}[1]{{\act{get-data}()}}
+\newcommand{\dagettag}[1]{{\act{get-tag}()}}
+\newcommand{\treas}{{\sc Treas}}
+\newcommand{\oreas}{{\sc Oreas}}
+\newcommand{\oreasSpace}{\oreas\hspace{2pt}}
+
+\newcommand{\aresII}{{\sc light}\ares}
+\stackMath
+\newcommand\wwidehat[1]{%
+	\savestack{\tmpbox}{\stretchto{%
+			\scaleto{%
+				\scalerel*[\widthof{\ensuremath{#1}}]{\kern-.6pt\bigwedge\kern-.6pt}%
+				{\rule[-\textheight/2]{1ex}{\textheight}}%WIDTH-LIMITED BIG WEDGE
+			}{\textheight}% 
+		}{0.5ex}}%
+	\stackon[1pt]{#1}{\tmpbox}%
+}
+\usepackage[symbol]{footmisc}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\newcommand{\cseq}[1]{{\wwidehat{#1}}}
+
+\newcommand*{\dictchar}[1]{
+	\clearpage
+	\twocolumn[
+	\centerline{\parbox[c][2cm][c]{15cm}{%
+			\fontsize{18}{18}
+			\selectfont
+			{\center{#1}}}}]
+}
+
+\input{macros}
+\input{nn_macros}
+
+\newcommand{\lewis}[1]{{\color{red} #1}}
+
+
+%%%%%% Format %%%%%%
+%Regular submissions must be no longer than five (5) two-column pages excluding references and the discussion section and should be submitted electronically via the submission form.
+
+%Discussion Topics Section: In keeping with the workshop format described above, authors of each full paper are required to add an additional section (beyond the 5-page limit), immediately before references, no longer than a half a page (i.e., a single (1) column) that explicitly calls out what kind of feedback the authors are looking to receive. These could be specific questions about feasibility, applicability, open problems, challenges, limitations, specific design choices, assumptions, importance, or similar issues. The review process will favor papers that are likely to stimulate discussion and benefit from feedback from workshop participants.
+
+%https://www.usenix.org/conference/hotcloud20/call-for-papers
+%%%%%%%%%%%%
+
+%-------------------------------------------------------------------------------
+\begin{document}
+	%-------------------------------------------------------------------------------
+	%don't want date printed
+	\date{}
+	% make title bold and 14 pt font (Latex default is non-bold, 16 pt)
+	%\title{\Large \bf \treasmod{}: Two-Round Erasure-coded Atomic Store \\with Optimized Storage Overhead}
+	%\title{\Large \bf CassandrEAS: Making Cassandra Strongly Consistent\\ and Efficient using Erasure Coding}
+	% or CassandrEAS: Strongly Consistent Erasure Coding KV-Store
+	%\maketitle
+	
+	\dictchar{CassandrEAS: Highly Available and Storage-Efficient Distributed KV-Store with Erasure Coding}
+	
+	%{\Large CassandrEAS: Making Cassandra Strongly Consistent and Efficient using Erasure Coding}
+	%-------------------------------------------------------------------------------
+	\begin{abstract}		
+		% Old comments: needt o shorten this to 150 -- 200 words
+		% See Cocytus for a nice writing: https://www.usenix.org/node/194429
+		Cassandra is a popular NoSQL database, often used as a distributed key-value store (KV-store) in industry. To increase availability and fault-tolerance, Cassandra replicates data on multiple servers, which unfortunately wastes storage space in the case of high replication. Recently, there has been a series of efforts on integrating erasure coding (EC) with various types of KV-store to reduce storage cost. To our knowledge, there is \textit{no} EC-based protocol for Cassandra or similar quorum-based KV-stores owing to the difficulties in integrating erasure coding with quorum-based design. 
+		
+		In this work, we propose a EC-based protocol that achieves strong consistency with \textit{near-optimal storage cost}. 
+		Our protocol supports concurrent read and write operations while tolerating asynchronous communication and crash failures of any client and some fraction of servers. 
+		One novel feature of our protocol is a \textit{tunable knob} between the number of supported concurrent operations, availability, and storage cost.
+		
+		We implement our protocol into  Cassandra, namely CassandrEAS (Cassandra + Erasure-coding Atomic Storage). Evaluation using YCSB on Google Cloud Platform with different configurations shows that  CassandrEAS incurs moderate penalty on latency and throughput, yet saves significant amount of storage space. 
+		
+		%For example, if we use an $[5, 3]$ MDS code in a 5-server cluster, then storage cost is $1.67$ per unit of data, instead of $5$ as in the case of the vanilla Cassandra. 
+		
+		
+		%Our results demonstrate that erasure coding not only benefits Cassandra in terms of storage but also behaves with comparable throughput. %with the strong consistency guarantee. %\red{XXX \%} storage space compared to original Cassandra. Our results demonstrate that erasure coding not only benefits Cassandra in terms of storage but also behaves with comparable throughput with the strong consistency guarantee.
+		
+		% Cass-TREAS and Cass-OREAS
+		
+		% before Kishori's edit
+		%Cassandra is a popular NoSQL database, and commonly used as a distributed key-value storage system (KV-store). Cassandra adopts a replicated-based protocol to replicate data on multiple servers for availability and fault-tolerance. Recently, there has been a series of efforts on integrating erasure coding-based protocols with various types of KV-store, e.g., Cocytus for in-memory KV-store and Giza for across-datacenter KV-store. In this work, we provide a solution using erasure coding-based protocol for Cassandra which achieves near-optimal communication and storage costs.
+		
+		%Erasure coding-based protocols are harder to design for a practical usage in general, as they usually require each server to store coded elements corresponding to \textit{multiple versions} of data, and also require more than two rounds to complete read or write operations. We propose two new algorithms that complete operation in \textit{one or two rounds}, and support concurrent operations while tolerating crash failures of any client and some fraction of servers. We integrate our algorithms with Cassandra, namely CassandrEAS (Cassandra + Erasure-coding Atomic Storage). Evaluation using YCSB on Google Cloud Platform with different configurations shows that  CassandrEAS incurs low overhead for latency and throughput, yet saves \red{XXX \%} memory compared to original Cassandra.
+		
+		
+		
+		%		In large-scale distributed storage systems, traditional approaches replicate data to ensure scalability, availability, and fault-tolerance.		Compared to replication-based protocols, erasure code-based protocols have much lower storage and communication costs, but they are harder to design for a practical usage in general. For example, erasure code-based protocols usually require each server to store coded elements corresponding to \textit{multiple versions} of data, and also require more than two rounds to complete read or write operations.
+		% to ensure that some version of data is decodable.
+		
+		%		In this work, we propose a new erasure code-based protocol \treasmod~to support concurrent read and write operations while tolerating crash failures of any client and some fraction of servers. Two main salient features are: (i) the round complexity is two, and (ii) communication and storage costs are near-optimal. The main novelty of \treasmod{} is a storage scheme that enables each server to store a coded element corresponding to only \textit{one version}, and also improves upon the storage cost of several comparable algorithms.		We also implement \treasmod~in Apache Cassandra, a popular distributed NoSQL system.  Our evaluation shows that \red{XXX.}
+		%We evaluate the performance using realistic benchmark tool, YCSB, in Google Cloud Platform. Our evaluation shows that XXX.
+	\end{abstract}
+	
+	
+	\input{intro}
+	%\input{design-kmk-v1}
+	%\input{evaluation}
+	
+	%\input{old}
+	%\input{implementation}
+	
+	%-------------------------------------------------------------------------------
+	%\section*{Availability}
+	%-------------------------------------------------------------------------------
+	
+	%USENIX program committees give extra points to submissions that are backed by artifacts that are publicly available. If you made your code or data available, it's worth mentioning this fact in a dedicated section.
+	
+	%-------------------------------------------------------------------------------
+	\bibliographystyle{plain}
+	\bibliography{biblio,biblio1,newbft,DSM,BFTnitin,hotcloudadd}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%  LocalWords:  endnotes includegraphics fread ptr nobj noindent
+%%  LocalWords:  pdflatex acks
